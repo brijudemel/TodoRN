@@ -13,7 +13,7 @@ export const TodoProvider = ({children}) => {
   }, []);
   const fetchValues = async () => {
     setIsLoading(true);
-    const recvValue = await AsyncStorage.getItem('@today');
+    const recvValue = await AsyncStorage.getItem('@1_day');
     console.log(JSON.parse(recvValue));
     setActivities(recvValue != null ? JSON.parse(recvValue) : []);
     setIsLoading(false);
@@ -26,12 +26,28 @@ export const TodoProvider = ({children}) => {
         activities,
         setActivities,
         submitHandle: async activity => {
+          const rand = Math.floor(100000 + Math.random() * 900000);
+          const newOb = {
+            activity: activity,
+            id: rand,
+          };
           setActivities(prevValues => {
-            return [...prevValues, activity];
+            return [...prevValues, newOb];
           });
           try {
-            await AsyncStorage.setItem('@today', JSON.stringify(activities));
+            await AsyncStorage.setItem('@1_day', JSON.stringify(activities));
             console.log('Added');
+          } catch (e) {
+            console.log(e);
+          }
+        },
+        deleteTodo: async activity => {
+          setActivities(() =>
+            activities.filter(todo => todo.id !== activity.id),
+          );
+          try {
+            await AsyncStorage.setItem('@1_day', JSON.stringify(activities));
+            console.log('Deleted');
           } catch (e) {
             console.log(e);
           }

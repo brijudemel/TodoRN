@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
-import {View, Text, Button} from 'react-native';
+import {View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-
+import {TodoContext} from '../context/TodoContext';
 const TodoItem = ({todo}) => {
+  const {deleteTodo} = useContext(TodoContext);
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => deleteTodo(todo)}>
       <View style={styles.card}>
         <View style={styles.cardContent}>
-          <Text style={styles.todo}>{todo}</Text>
+          <Text style={styles.todo}>{todo.activity}</Text>
         </View>
         <Icon name="trash" style={styles.icon} />
       </View>

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {FlatList, StyleSheet} from 'react-native';
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View} from 'react-native';
 import {TodoContext} from '../context/TodoContext';
 import TodoItem from '../components/TodoItem';
 const TodoList = () => {
@@ -10,6 +10,7 @@ const TodoList = () => {
     <View>
       <FlatList
         data={activities}
+        keyExtractor={activity => activity.id}
         renderItem={({item}) => <TodoItem todo={item} />}
       />
     </View>
