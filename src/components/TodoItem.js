@@ -1,13 +1,18 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {View, Text, Button} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+
 const TodoItem = ({todo}) => {
   return (
-    <View style={styles.card}>
-      <View style={styles.cardContent}>
-        <Text style={styles.todo}>{todo}</Text>
+    <TouchableOpacity>
+      <View style={styles.card}>
+        <View style={styles.cardContent}>
+          <Text style={styles.todo}>{todo}</Text>
+        </View>
+        <Icon name="trash" style={styles.icon} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -22,6 +27,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     marginHorizontal: 4,
     marginVertical: 6,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   cardContent: {
     marginHorizontal: 10,
@@ -29,6 +36,11 @@ const styles = StyleSheet.create({
   },
   todo: {
     fontSize: 25,
+  },
+  icon: {
+    fontSize: 24,
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
 });
 

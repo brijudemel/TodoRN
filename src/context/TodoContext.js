@@ -4,14 +4,6 @@ import {useEffect} from 'react/cjs/react.development';
 
 export const TodoContext = createContext();
 export const TodoProvider = ({children}) => {
-  // const [activities, setActivities] = useState(async () => {
-  // try {
-  //   const recvValue = await AsyncStorage.getItem('@today');
-  //   return recvValue != null ? JSON.parse(recvValue) : [];
-  // } catch (e) {
-  //   console.log(e);
-  // }
-  // });
   const [activities, setActivities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
