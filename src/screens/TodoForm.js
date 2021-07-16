@@ -1,37 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {StyleSheet} from 'react-native';
 import {View, Text, TextInput, Button} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TodoContext} from '../context/TodoContext';
 
 const TodoForm = ({navigation}) => {
+  const {submitHandle} = useContext(TodoContext);
   const [activity, setActivity] = useState('');
-  const [activities, setActivities] = useState([]);
-  useEffect(() => {
-    setActivities(async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('@today');
-        return jsonValue != null ? JSON.parse(jsonValue) : [];
-      } catch (e) {
-        console.log(e);
-      }
-    });
-    console.log(activities);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const onSubmit = async () => {
-    // setActivities(prevValues => {
-    //   return [...prevValues, activity];
-    // });
-    setActivities([activity]);
-    try {
-      await AsyncStorage.setItem('@today', JSON.stringify(activities));
-      console.log('Added');
-    } catch (e) {
-      console.log(e);
-    }
-    setActivity('');
-  };
 
   return (
     <View>
@@ -41,7 +15,13 @@ const TodoForm = ({navigation}) => {
         value={activity}
         onChangeText={text => setActivity(text)}
       />
-      <Button title="Add" onPress={onSubmit} />
+      <Button
+        title="Add"
+        onPress={() => {
+          submitHandle(activity);
+          setActivity('');
+        }}
+      />
       <Button
         title="View List"
         onPress={() =>
