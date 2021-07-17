@@ -1,47 +1,45 @@
 import React, {useContext} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import {View, Text} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {TodoContext} from '../context/TodoContext';
 const TodoItem = ({todo}) => {
   const {deleteTodo} = useContext(TodoContext);
   return (
-    <TouchableOpacity onPress={() => deleteTodo(todo)}>
-      <View style={styles.card}>
-        <View style={styles.cardContent}>
-          <Text style={styles.todo}>{todo.activity}</Text>
-        </View>
-        <Icon name="trash" style={styles.icon} />
+    <View style={styles.card}>
+      <View style={styles.cardContent}>
+        <Text style={styles.todo}>{todo.activity}</Text>
       </View>
-    </TouchableOpacity>
+      <TouchableOpacity onPress={() => deleteTodo(todo)}>
+        <Icon name="trash" style={styles.icon} />
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 6,
-    elevation: 5,
-    backgroundColor: '#fff',
-    shadowOffset: {width: 1, height: 1},
-    shadowColor: '#333',
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    marginHorizontal: 4,
-    marginVertical: 6,
+    borderRadius: 10,
+
+    backgroundColor: '#5D4A66',
+    marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   cardContent: {
-    marginHorizontal: 10,
-    marginVertical: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginLeft: 20,
   },
   todo: {
-    fontSize: 25,
+    fontSize: 20,
+    padding: 10,
+    color: '#fff',
   },
   icon: {
-    fontSize: 24,
-    marginHorizontal: 10,
-    marginVertical: 10,
+    fontSize: 20,
+    marginRight: 10,
+    color: '#fff',
   },
 });
 
